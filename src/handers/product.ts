@@ -30,8 +30,6 @@ export const getProductsById = async (req: Request, res: Response) =>{
        console.log(error)
     }
 }
-     
-
 
 export const createProduct = async (req : Request, res : Response) => {
        try {
@@ -40,4 +38,23 @@ export const createProduct = async (req : Request, res : Response) => {
        } catch (error){
         console.log(error)
        }
+    }
+
+
+    // Consulta al producto 
+    export const updateProduct = async (req: Request, res: Response) => {
+         const {id} = req.params
+         const product = await Product.findByPk(id)
+
+         // ver si existe
+         if(!product) {
+            return res.status(404).json({
+               error: 'Producto No Encontrado'
+            })
+         }
+
+         // procedemos a actualizar
+         await product.update(req.body)
+         await product.save()
+         res.json({data: product})
     }
