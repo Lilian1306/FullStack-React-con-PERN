@@ -58,3 +58,35 @@ export const createProduct = async (req : Request, res : Response) => {
          await product.save()
          res.json({data: product})
     }
+
+    export const updateAvailabitlity = async (req: Request, res:Response) => {
+         const {id} = req.params
+         const product = await Product.findByPk(id)
+
+         if(!product){
+            return res.status(404).json({
+               error: 'Producto No Encontrado'
+            })
+         }
+
+         product.availability = !product.dataValues.availability
+         await product.save()
+
+         res.json({data: product})
+
+    }
+    // PUT = reemplaza todo lo que estamos enviando ACTUALIZA
+    // PATCH = reemplaza los unicos elementos que queremos o que enviamos. MODIFICA
+
+    export const deleteProduct = async (req: Request, res: Response) => {
+       const {id} = req.params
+       const product = await Product.findByPk(id)
+
+       if(!product) {
+         return res.status(404).json({
+            error: 'Producto No Encontrado'
+         })
+       }
+       await product.destroy()
+       res.json({data: 'Producto Eliminado'})
+    }
