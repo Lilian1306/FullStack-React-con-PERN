@@ -2,17 +2,12 @@ import { Request, Response} from 'express'
 import Product from '../models/Product.model'
 
 export const getProducts = async (req: Request, res: Response) => {
-    try {
-       const products = await Product.findAll({
-          order: [
-             ['price', 'DESC']
-          ]
-       })
-       res.json({data: products})
-    }catch(error){
-        console.log(error)
-    }
-}
+   const products = await Product.findAll({
+     order: [["price", "DESC"]],
+     attributes: { exclude: ["createdAt", "updatedAt"] },
+   });
+   res.json({ data: products });
+ };
 
 export const getProductsById = async (req: Request, res: Response) =>{
    const { id } = req.params
