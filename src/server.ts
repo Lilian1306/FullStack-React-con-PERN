@@ -2,7 +2,7 @@ import express from 'express'
 import colors from 'colors'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './config/swagger'
-import router from './route'
+import router from './router'
 import db from './config/db'
 
 // Conectar a base de datos
