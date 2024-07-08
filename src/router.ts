@@ -82,12 +82,40 @@ router.get('/', getProducts)
  * 
  */
 
-
 router.get('/:id', 
     param('id').isInt().withMessage('ID no valido'),
     handleInputErrors,
     getProductsById
 )
+
+/***
+ * @swagger
+ * /api/products: 
+ *  post: 
+ *      summary: Create a new product
+ *      tags: 
+ *          - Products
+ *      description: Return a new record in the database
+ *      requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema: 
+ *                          type: object
+ *                          properties: 
+ *                              name: 
+ *                                  type: string
+ *                                  example: "Monitor curvo de 49 Pulgadas"
+ *                              price: 
+ *                                  type: number
+ *                                  example: 399
+ *      responses:
+ *          201:
+ *            description: Product created successfully
+ *          400:
+ *            description: Bad Request - Invalid input data                            
+ * 
+ */
  
  router.post('/', 
    // Validacion
