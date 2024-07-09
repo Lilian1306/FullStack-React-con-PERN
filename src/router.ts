@@ -92,7 +92,7 @@ router.get('/:id',
  * @swagger
  * /api/products: 
  *  post: 
- *      summary: Create a new product
+ *      summary: Creates a new product
  *      tags: 
  *          - Products
  *      description: Return a new record in the database
@@ -109,9 +109,13 @@ router.get('/:id',
  *                              price: 
  *                                  type: number
  *                                  example: 399
- *      responses:
+ *      responses: 
  *          201:
- *            description: Product created successfully
+ *            description: Successfully response
+ *            content: 
+ *                  application/json:
+ *                           schema: 
+ *                               $ref: '#/components/schemas/Product'
  *          400:
  *            description: Bad Request - Invalid input data                            
  * 
@@ -127,7 +131,51 @@ router.get('/:id',
          .custom(value => value > 0).withMessage('Precio no valido'),
        handleInputErrors,
        createProduct
-)
+);
+
+/**
+ * @swagger
+ * /api/products/{id}: 
+ *   put: 
+ *      summary: Updates a product with user input
+ *      tags:  
+ *        - Products
+ *      description: Returns the updated product
+ *      parameters: 
+ *        - in: path
+ *          name: id
+ *          description: The ID of the product to retrieve
+ *          required: true
+ *          schema: 
+ *              type: integer
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                    schema: 
+ *                          type: object
+ *                          properties: 
+ *                              name: 
+ *                                  type: string
+ *                                  example: "Monitor curvo de 49 Pulgadas"
+ *                              price: 
+ *                                  type: number
+ *                                  example: 399
+ *                              availability: 
+ *                                  type: boolean
+ *                                  example: true
+ *      responses: 
+ *              200:
+ *                  description: Successful response
+ *                  content: 
+ *                      application/json:
+ *                              schema: 
+ *                                  $ref: '#/components/schemas/Product'
+ *              400:
+ *                  description: Bad Request - Invalid ID or Invalid input data
+ *              404:
+ *                  description: Product nof found
+ */
 
 
  router.put('/:id', 
