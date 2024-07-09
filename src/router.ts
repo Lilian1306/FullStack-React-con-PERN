@@ -230,6 +230,37 @@ router.get('/:id',
    )
 
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  delete:
+ *      summary:  Deletes a Product by given ID
+ *      tags: 
+ *          - Products
+ *      description: Returns a confirmation message
+ *      parameters: 
+ *          - in: path
+ *            name: id
+ *            description: The ID of the product to delete
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *      responses: 
+ *          200:
+ *              description: Successful response
+ *              content: 
+ *                  application/json: 
+ *                      schema: 
+ *                          type: string
+ *                          value: 'Producto Eliminado' 
+ *          400: 
+ *              description:  Bad Request - Invalid ID
+ *          404:
+ *              description: Product not found
+ * 
+ *  */   
+
+
   router.delete('/:id', 
       param('id').isInt().withMessage('ID no valido'),
       handleInputErrors,
